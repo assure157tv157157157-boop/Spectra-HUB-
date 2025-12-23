@@ -1,4 +1,4 @@
--- LocalScript - Spectra Hub Loading Screen (com Blur)
+-- LocalScript - Spectra Hub Loading Screen (6 segundos)
 
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
@@ -7,7 +7,7 @@ local player = Players.LocalPlayer
 
 -- ===== BLUR =====
 local blur = Instance.new("BlurEffect")
-blur.Size = 16 -- intensidade do desfoque
+blur.Size = 16
 blur.Parent = Lighting
 
 -- GUI
@@ -85,7 +85,7 @@ local barBgCorner = Instance.new("UICorner")
 barBgCorner.CornerRadius = UDim.new(1, 0)
 barBgCorner.Parent = barBg
 
--- Barra de progresso (VERMELHA)
+-- Barra de progresso (vermelha)
 local bar = Instance.new("Frame")
 bar.Size = UDim2.new(0, 0, 1, 0)
 bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
@@ -103,10 +103,10 @@ sound.TimePosition = 15
 sound.Parent = gui
 sound:Play()
 
--- Barra de loading (8 segundos)
+-- Barra de loading (6 segundos)
 TweenService:Create(
 	bar,
-	TweenInfo.new(8, Enum.EasingStyle.Linear),
+	TweenInfo.new(6, Enum.EasingStyle.Linear),
 	{ Size = UDim2.new(1, 0, 1, 0) }
 ):Play()
 
@@ -120,16 +120,14 @@ task.spawn(function()
 	end
 end)
 
--- Aos 7 segundos: fade do som + desembaçar
-task.delay(7, function()
-	-- Fade do som
+-- Aos 5 segundos: fade do som + desembaçar
+task.delay(5, function()
 	TweenService:Create(
 		sound,
 		TweenInfo.new(1, Enum.EasingStyle.Linear),
 		{ Volume = 0 }
 	):Play()
 
-	-- Desembaçar
 	TweenService:Create(
 		blur,
 		TweenInfo.new(1, Enum.EasingStyle.Linear),
@@ -137,8 +135,8 @@ task.delay(7, function()
 	):Play()
 end)
 
--- Final (8 segundos)
-task.delay(8, function()
+-- Final (6 segundos)
+task.delay(6, function()
 	gui:Destroy()
 	blur:Destroy()
 
