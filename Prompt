@@ -1,0 +1,141 @@
+cole tudo isso abaixo em uma ia que você queira 
+
+
+
+
+Crie um script em localscript em lua
+
+--// UI LIB
+local Library = loadstring(game:HttpGet("https://pastefy.app/qoLIvWvg/raw"))()
+
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+
+-- Atualiza personagem quando resetar
+LocalPlayer.CharacterAdded:Connect(function(char)
+Character = char
+end)
+
+--// WINDOW
+local Window = Library:MakeWindow({
+Title = "bereguede hub | Brookhaven RP 🏡",
+SubTitle = "by: xing ling",
+LoadText = "Carregando Spectra",
+Flags = "Spectrahub_Brookhaven"
+})
+
+Window:AddMinimizeButton({
+Button = { Image = "rbxassetid://12178838632", BackgroundTransparency = 0 },
+Corner = { CornerRadius = UDim.new(35, 1) }
+})
+
+--////////////////////////////////////////////////////
+--// TAB FUNÇÕES
+local Tab = Window:MakeTab({
+Title = "Funções",
+Icon = "rbxassetid://7734053495"
+})
+
+Tab:AddSection({"Movimentação"})
+
+
+---
+
+-- NO CLIP
+
+local noclip = false
+local noclipConnection
+
+Tab:AddToggle({
+Name = "No Clip",
+Default = false,
+Callback = function(state)
+noclip = state
+
+if noclip then
+noclipConnection = RunService.Stepped:Connect(function()
+if Character and Character:FindFirstChild("HumanoidRootPart") then
+for _, part in pairs(Character:GetDescendants()) do
+if part:IsA("BasePart") then
+part.CanCollide = false
+end
+end
+end
+end)
+else
+if noclipConnection then
+noclipConnection:Disconnect()
+noclipConnection = nil
+end
+
+-- Restaura colisão    
+    if Character then    
+        for _, part in pairs(Character:GetDescendants()) do    
+            if part:IsA("BasePart") then    
+                part.CanCollide = true    
+            end    
+        end    
+    end    
+end
+
+end
+
+})
+
+
+---
+
+-- INFINITY JUMP
+
+local infiniteJump = false
+local jumpConnection
+
+Tab:AddToggle({
+Name = "Infinity Jump",
+Default = false,
+Callback = function(state)
+infiniteJump = state
+
+if infiniteJump then
+jumpConnection = UserInputService.JumpRequest:Connect(function()
+if Character and Character:FindFirstChildOfClass("Humanoid") then
+Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Jumping)
+end
+end)
+else
+if jumpConnection then
+jumpConnection:Disconnect()
+jumpConnection = nil
+end
+end
+end
+
+})
+
+
+---
+
+-- INFO
+
+Tab:AddSection({"Informações"})
+
+Tab:AddParagraph({
+"Executor",
+identifyexecutor and identifyexecutor() or "Executor Desconhecido"
+})
+
+Tab:AddParagraph({
+"Jogador",
+LocalPlayer.Name
+})
+
+Tab:AddParagraph({
+"Versão",
+"V999"
+})
+
+Nessa aba adicione mais um botão chamado spin quando ele tiver ligado eu vou rodar a 500 por hora agora me deu script completo com tudo
